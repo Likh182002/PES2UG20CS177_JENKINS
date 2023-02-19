@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'g++ ./main/PES2UG20CS177.cpp'
+                build job : 'PES2UG20CS177-1'
+                
+            }
+        }
+        stage('Test'){
+            steps{
+                sh './a.out'
+                echo 'Test Stage Successful'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                echo 'Deployed'
+            }
+        }
+    }
+    post{
+        failure{
+            echo 'Pipeline failed'
+        }
+    }
+}
